@@ -1,3 +1,4 @@
+
 const mysqlx = require('@mysql/xdevapi');
 // Connect to server on localhost
 //var mySession = mysqlx.getSession()

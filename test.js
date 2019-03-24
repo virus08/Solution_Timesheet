@@ -1,3 +1,3 @@
-var TimesheetDB = require('./MyModule/Database');
-
-console.log(TimesheetDB.initDatabase());
+var Timesheet = require('./MyModule/Database');
+Timesheet.CreateES();
+return;
