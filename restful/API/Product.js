@@ -1,5 +1,5 @@
 import express from "express";
-import db from "../db/database";
+import db from "../db/mysql";
 import Product from "../domain/product";
 
 const router = express.Router();
@@ -20,8 +20,8 @@ router.post("/add", (req, res, next) => {
 
     //read product information from request
     let product = new Product(req.body.prd_name, req.body.prd_price);
-
-    db.query(product.getAddProductSQL(), (err, data)=> {
+    console.log(req.body.prd_name, req.body.prd_price)
+    db.dml(product.getAddProductSQL(), (err, data)=> {
         res.status(200).json({
             message:"Product added.",
             productId: data.insertId
@@ -53,7 +53,7 @@ router.post("/delete", (req, res, next) => {
 
     var pid = req.body.productId;
 
-    db.query(Product.deleteProductByIdSQL(pid), (err, data)=> {
+    db.dml(Product.deleteProductByIdSQL(pid), (err, data)=> {
         if(!err) {
             if(data && data.affectedRows > 0) {
                 res.status(200).json({

@@ -1,14 +1,16 @@
 import mysql from "mysql";
-
-const pool = mysql.createPool({
-            connectionLimit : 10,
-            host     : 'localhost',
-            user     : 'root',
-            port     : '6446',
-            password : '',
-            database : 'ES',
-            debug    : false 
-            });                    
+require('dotenv').config(); 
+const connectionstring = {
+    connectionLimit : process.env.DBPOOLSIZE,
+    host     : process.env.DBHOST,
+    user     : process.env.DBACCOUNT,
+    port     : process.env.DBPORTRW,
+    password : process.env.DBPASS,
+    database : process.env.DBSCHEMA,
+    debug    : true 
+    }
+console.log(connectionstring);
+const pool = mysql.createPool(connectionstring);
 
 function executeQuery(sql, callback) {
     pool.getConnection((err,connection) => {
